@@ -69,8 +69,8 @@
     <div class="site-footer">
         <div class="site-social">
             <ul>
-				<li><a href="http://tekitoumemo.hatenablog.com/" target="_blank"><i class="pe-so-dribbble pe-lg pe-va"></i></a></li>
-                <li><a href="https://www.facebook.com/ikuo.saito.710" target="_blank"><i class="pe-so-facebook pe-lg pe-va"></i></a></li>
+				<li><a href="http://tekitoumemo.hatenablog.com/" target="_blank"><img src="images/blog-logo.png"></a></li>
+                <li><a href="https://www.facebook.com/ikuo.saito.710" target="_blank"><img src="images/facebook-logo.png"></a></li>
             </ul>
         </div>
     
@@ -86,24 +86,28 @@
 <div class="site-main">
 
     <ul class="row grid cs-style-2">
-      <li class="col-md-2 post">
-		<figure>
-			<img src="images/uploads/01.jpg">
-			<figcaption>
-				<h3>NoName</h3>
-				<span>NoArtists</span>
-			</figcaption>
-		</figure>
-      </li>
-      <li class="col-md-2 post">
-		<figure>
-			<img src="images/uploads/02.jpg">
-			<figcaption>
-				<h3>NoName</h3>
-				<span>NoArtists</span>
-			</figcaption>
-		</figure>
-      </li>
+		<a href="images/uploads/01.jpg" target=\"_blank\">
+		<li class="col-md-2 post">
+			<figure>
+				<img src="images/uploads/01.jpg">
+				<figcaption>
+					<h3>NoName</h3>
+					<span>NoArtists</span>
+				</figcaption>
+			</figure>
+		</li>
+		  </a>
+		<a href="images/uploads/02.jpg" target=\"_blank\">
+		<li class="col-md-2 post">
+			<figure>
+				<img src="images/uploads/02.jpg">
+				<figcaption>
+					<h3>NoName</h3>
+					<span>NoArtists</span>
+				</figcaption>
+			</figure>
+		</li>
+		</a>
       <li class="col-md-2 post">
 		<figure>
 			<img src="images/uploads/03.jpg">
@@ -266,15 +270,6 @@
 			</figcaption>
 		</figure>
       </li>
-      <!-- <li class="col-md-2 post">
-		<figure>
-			<img src="images/uploads/02.jpg">
-			<figcaption>
-				<h3>NoName</h3>
-				<span>NoArtists</span>
-			</figcaption>
-		</figure>
-      </li> -->
     </ul>
 </div>
 
@@ -291,33 +286,11 @@
     <!-- Caption Effects Plugin -->
     <script src="CaptionHoverEffects/js/modernizr.custom.js"></script>
     <script src="CaptionHoverEffects/js/toucheffects.js"></script>
-	
+	<script src="js/getimages.js"></script>
 	    <script>
 			$(document).ready(function(){
-				$("#word").val("");
+				constructor();
 			});
-			function get()
-			{
-				var word = $("#word").val();
-				var url = "https://itunes.apple.com/search?lang=ja_jp&entry=music&media=music&country=JP&term={0}".replace("{0}",word);
-				$.ajax({
-					url : url,
-					type : "GET",
-					dataType : "json",
-					success : function(data){
-						$('.col-md-2').remove();
-						for (var i=0; i<data.resultCount; i++) {
-							// <a download="crop.mp4" href="uploaded/crop.mp4">
-							var insertTag = "<a href={0} target=\"_blank\"><li class=\"col-md-2 post\"><figure><img src=\"{1}\"><figcaption><h3>{2}</h3><span>{3}}</span></figcaption></figure></li></a>";
-							insertTag = insertTag.replace("{0}",data.results[i].artworkUrl100.replace("100x100bb","500x500bb"))
-							insertTag = insertTag.replace("{1}",data.results[i].artworkUrl100.replace("100x100bb","300x300bb"))
-							insertTag = insertTag.replace("{2}",data.results[i].collectionName)
-							insertTag = insertTag.replace("{3}",data.results[i].artistName)
-							$(".row").append(insertTag);
-						}
-					}
-				});
-			}
 		</script>
 <!-- \ JS Files  -->
 
