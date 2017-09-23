@@ -1,5 +1,8 @@
 function constructor()
 {
+    var $loading = $(".loading");
+    $loading.removeClass("is-hide");
+    $loading.addClass("is-hide");
     $("#word").val("");
     $('.col-md-2').remove();
     for (var i=0; i<20; i++) {
@@ -17,21 +20,33 @@ function get()
 {
     var word = $("#word").val();
     var url = "https://itunes.apple.com/search?lang=ja_jp&entry=music&media=music&country=JP&term={0}".replace("{0}",word);
-    $.ajax({
-        url : url,
-        type : "GET",
-        dataType : "json",
-        success : function(data){
-            $('.col-md-2').remove();
-            for (var i=0; i<data.resultCount; i++) {
-                // <a download="crop.mp4" href="uploaded/crop.mp4">
-                var insertTag = "<a href={0} target=\"_blank\"><li class=\"col-md-2 post\"><figure><img src=\"{1}\"><figcaption><h3>{2}</h3><span>{3}</span></figcaption></figure></li></a>";
-                insertTag = insertTag.replace("{0}",data.results[i].artworkUrl100.replace("100x100bb","1000x1000bb"))
-                insertTag = insertTag.replace("{1}",data.results[i].artworkUrl100.replace("100x100bb","300x300bb"))
-                insertTag = insertTag.replace("{2}",data.results[i].collectionName)
-                insertTag = insertTag.replace("{3}",data.results[i].artistName)
-                $(".row").append(insertTag);
+    var $loading = $(".loading");
+    $loading.removeClass("is-hide");
+    setTimeout(function(){
+        $.ajax({
+            url : url,
+            type : "GET",
+            dataType : "json",
+            success : function(data){
+                if(data.resultCount == 0)
+                {
+                    constructor()
+                }else
+                {
+                    $('.col-md-2').remove();
+                    for (var i=0; i<data.resultCount; i++) {
+                        var insertTag = "<a href={0} target=\"_blank\"><li class=\"col-md-2 post\"><figure><img src=\"{1}\"><figcaption><h3>{2}</h3><span>{3}</span></figcaption></figure></li></a>";
+                        insertTag = insertTag.replace("{0}",data.results[i].artworkUrl100.replace("100x100bb","1000x1000bb"))
+                        insertTag = insertTag.replace("{1}",data.results[i].artworkUrl100.replace("100x100bb","300x300bb"))
+                        insertTag = insertTag.replace("{2}",data.results[i].collectionName)
+                        insertTag = insertTag.replace("{3}",data.results[i].artistName)
+                        $(".row").append(insertTag);
+                    }    
+                }
+            },
+            complete : function(data) {
+                $loading.addClass("is-hide");
             }
-        }
-    });
+        });
+    },400)
 }
