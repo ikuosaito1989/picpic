@@ -473,6 +473,8 @@ svg {
  margin-top:0px;
  z-index:99;
  padding:15px;
+ padding-left: 40%;
+ padding-right: 50%;
  float:left
 }
  .site-header h1, .site-footer {

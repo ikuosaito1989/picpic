@@ -28,7 +28,7 @@ function get()
             type : "GET",
             dataType : "json",
             success : function(data){
-                if(data.resultCount == 0)
+                if(data.resultCount == undefined)
                 {
                     constructor()
                 }else
@@ -50,3 +50,8 @@ function get()
         });
     },400)
 }
+$('#word').keypress( function ( e ) {
+	if ( e.which == 13 ) {
+		get();
+	}
+} );
