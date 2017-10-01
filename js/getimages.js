@@ -28,9 +28,9 @@ function get()
             type : "GET",
             dataType : "json",
             success : function(data){
-                if(data.resultCount == undefined)
+                if(data.resultCount == 0)
                 {
-                    constructor()
+                    constructor();
                 }else
                 {
                     $('.col-md-2').remove();
